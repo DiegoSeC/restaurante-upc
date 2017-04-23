@@ -1,21 +1,20 @@
-import 'core-js/client/shim';
-import 'zone.js/dist/zone';
+/// <reference path='../typings/index.d.ts' />
 
-import '@angular/common';
-import 'rxjs';
+// libraries
+import 'angular';
+import 'angular-ui-router';
 
+// css
 import './index.css';
 
-import {enableProdMode} from '@angular/core';
-import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-import {AppModule} from './app';
+// app
+import './app/app';
+import './app/app.config';
 
-declare var process: any;
-if (process.env.NODE_ENV === 'production') {
-  enableProdMode();
-} else {
-  Error['stackTraceLimit'] = Infinity; // tslint:disable-line:no-string-literal
-  require('zone.js/dist/long-stack-trace-zone'); // tslint:disable-line:no-var-requires
-}
+// cotizacion
+import './app/cotizacion/cotizacion.model';
+import './app/cotizacion/cotizacion.app';
+import './app/cotizacion/cotizacion.config';
+import './app/cotizacion/cotizacion.factory';
+import './app/cotizacion/cotizacion.component';
 
-platformBrowserDynamic().bootstrapModule(AppModule);

@@ -1,3 +1,8 @@
-body {
-  background-color: lightgrey;
+.gris {
+  color: #777;
+  font-size: 85%;
+}
+
+.dashboard-body {
+  margin-top: 40px;
 }

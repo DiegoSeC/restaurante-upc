@@ -1,0 +1,65 @@
+<ol class="breadcrumb">
+  <li><a href="#">Logistica</a></li>
+  <li><a ui-sref="app.cotizacion.dashboard">Registrar Cotización</a></li>
+</ol>
+
+<div class="page-header">
+  <h1>
+    Listado de Cotización
+    <div class="pull-right">
+      <button class="btn btn-default btn-sm">Nuevo</button>
+      <button class="btn btn-warning btn-sm">Salir</button>
+    </div>
+  </h1>
+</div>
+
+<div class="dashboard-title">
+  <div class="row">
+    <div class="col-xs-6">
+      <h4>Fecha: <span class="gris">{{ c.currentDate | date: 'dd/MM/yyyy' }}</span></h4>
+      <h4>Número de Cotizaciones: <span class="gris">{{ c.cotizaciones.length }}</span></h4>
+    </div>
+    <div class="col-xs-6">
+      <form>
+        <div class="form-group">
+          <label class="sr-only" for="search">Buscar Cotización</label>
+          <div class="input-group col-xs-12">
+            <input type="text" class="form-control" id="search" placeholder="Buscar Cotización">
+            <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="dashboard-body">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th>Código</th>
+      <th>Generado por</th>
+      <th>Creado</th>
+      <th>Modificado</th>
+      <th>Estado</th>
+      <th>Acciones</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="cotizacion in c.cotizaciones">
+        <td>{{ cotizacion.id }}</td>
+        <td>{{ cotizacion.createdBy }}</td>
+        <td>{{ cotizacion.created | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ cotizacion.updated | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ cotizacion.estado }}</td>
+        <td>
+          <button class="btn btn-default btn-sm">Editar</button>
+          <button class="btn btn-danger btn-sm">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+

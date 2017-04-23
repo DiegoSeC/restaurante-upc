@@ -5,6 +5,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const FailPlugin = require('webpack-fail-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const pkg = require('../package.json');
 const autoprefixer = require('autoprefixer');
 
 module.exports = {
@@ -33,6 +34,7 @@ module.exports = {
         test: /\.ts$/,
         exclude: /node_modules/,
         loaders: [
+          'ng-annotate-loader',
           'ts-loader'
         ]
       },
@@ -50,13 +52,6 @@ module.exports = {
     FailPlugin,
     new HtmlWebpackPlugin({
       template: conf.path.src('index.html')
-    }),
-    new webpack.ContextReplacementPlugin(
-      /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-      conf.paths.src
-    ),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"'
     }),
     new webpack.optimize.UglifyJsPlugin({
       output: {comments: false},
@@ -89,5 +84,8 @@ module.exports = {
       '.ts'
     ]
   },
-  entry: `./${conf.path.src('index')}`
+  entry: {
+    app: `./${conf.path.src('index')}`,
+    vendor: Object.keys(pkg.dependencies)
+  }
 };

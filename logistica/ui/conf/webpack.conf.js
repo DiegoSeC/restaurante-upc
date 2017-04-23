@@ -33,6 +33,7 @@ module.exports = {
         test: /\.ts$/,
         exclude: /node_modules/,
         loaders: [
+          'ng-annotate-loader',
           'ts-loader'
         ]
       },
@@ -40,6 +41,13 @@ module.exports = {
         test: /\.html$/,
         loaders: [
           'html-loader'
+        ]
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loaders: [
+          'file-loader?hash=sha512&digest=hex&name=[hash].[ext]',
+          'image-webpack-loader?bypassOnDebug&optimizationLevel=7&interlaced=false'
         ]
       }
     ]
@@ -49,12 +57,9 @@ module.exports = {
     new webpack.NoEmitOnErrorsPlugin(),
     FailPlugin,
     new HtmlWebpackPlugin({
-      template: conf.path.src('index.html')
+      template: conf.path.src('index.html'),
+      inject: true
     }),
-    new webpack.ContextReplacementPlugin(
-      /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
-      conf.paths.src
-    ),
     new webpack.LoaderOptionsPlugin({
       options: {
         postcss: () => [autoprefixer],
