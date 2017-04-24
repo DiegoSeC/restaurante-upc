@@ -16,7 +16,7 @@
 <form ng-submit="n.form.$valid && n.saveCotizacion()" name="n.form" novalidate>
   <div class="dashboard-title">
     <div class="row">
-      <div class="col-sm-6 col-xs-12">
+      <div class="col-xs-12" ng-class="{'col-sm-6': !n.edit, 'col-sm-4': n.edit}">
         <div class="form-group"
              ng-class="{'has-error has-feedback': (n.form.ruc.$dirty || n.form.$submitted) && n.form.ruc.$invalid}">
           <label class="control-label" for="ruc">RUC de Proveedor</label>
@@ -29,7 +29,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-6 col-xs-12">
+      <div class="col-xs-12" ng-class="{'col-sm-6': !n.edit, 'col-sm-4': n.edit}">
         <div class="form-group"
              ng-class="{'has-error has-feedback': (n.form.fecha.$dirty || n.form.$submitted) && n.form.fecha.$invalid}">
           <label class="control-label" for="fecha">Fecha</label>
@@ -37,6 +37,14 @@
                  placeholder="Ingrese Fecha" required>
           <span class="glyphicon glyphicon-remove form-control-feedback"
                 ng-show="(n.form.fecha.$dirty || n.form.$submitted) && n.form.fecha.$invalid" aria-hidden="true"></span>
+        </div>
+      </div>
+      <div class="col-xs-12" ng-class="{'col-sm-6': !n.edit, 'col-sm-4': n.edit}" ng-show="n.edit">
+        <div class="form-group"
+             ng-class="{'has-error has-feedback': (n.form.fecha.$dirty || n.form.$submitted) && n.form.fecha.$invalid}">
+          <label class="control-label" for="estado">Estado</label>
+          <select class="form-control" name="estado" ng-model="n.cotizacion.estado" id="estado"
+                  ng-options="estado as estado for estado in ['Activo', 'Anulado']"></select>
         </div>
       </div>
     </div>

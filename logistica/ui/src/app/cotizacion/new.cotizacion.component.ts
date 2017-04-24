@@ -2,23 +2,27 @@ namespace Taller.Cotizacion {
   'use strict';
 
   class NewCotizacionController implements angular.IComponentController {
-    static $inject = ['$filter', 'CotizacionFactory', '$uibModal', '$state', '$timeout'];
+    static $inject = ['$filter', 'CotizacionFactory', '$uibModal', '$state', '$timeout', '$stateParams'];
 
     private cotizacion = <Taller.Cotizacion.ICotizacion> {};
     private solicitud: Taller.Cotizacion.ISolicitudCotizacion;
 
     private subtotal: number = 0;
+    private edit = false;
 
     constructor(public $filter: angular.IFilterService,
                 public CotizacionFactory: Taller.Cotizacion.ICotizacionFactory,
                 public $uibModal: angular.ui.bootstrap.IModalService,
                 public $state: angular.ui.IStateService,
-                public $timeout: angular.ITimeoutService) {
+                public $timeout: angular.ITimeoutService,
+                public $stateParams: angular.ui.IStateParamsService) {
 
       console.log('New Cotizacion');
 
       this.solicitud = this.CotizacionFactory.getSolicitud();
       this.setSolicitudDetails();
+
+      this.edit = !!this.$stateParams.id;
     }
 
     setSolicitudDetails() {

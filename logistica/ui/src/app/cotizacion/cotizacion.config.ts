@@ -25,6 +25,11 @@ namespace Taller.Cotizacion {
         component: 'newCotizacion'
       })
       .state({
+        name: 'app.cotizacion.edit',
+        url: '/edit/:id',
+        component: 'newCotizacion'
+      })
+      .state({
         name: 'app.cotizacion.solicitud',
         url: '/solicitud-cotizacion',
         component: 'solicitudCotizacion'
