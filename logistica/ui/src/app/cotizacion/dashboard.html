@@ -1,13 +1,15 @@
 <ol class="breadcrumb">
   <li><a href="#">Logistica</a></li>
-  <li><a ui-sref="app.cotizacion.dashboard">Registrar Cotización</a></li>
+  <li class="active">Registrar Cotización</li>
 </ol>
+
+<div uib-alert class="alert-success" ng-show="c.success">Se registró la nueva cotización</div>
 
 <div class="page-header">
   <h1>
     Listado de Cotización
     <div class="pull-right">
-      <button class="btn btn-default btn-sm">Nuevo</button>
+      <button class="btn btn-default btn-sm" ui-sref="app.cotizacion.form">Nuevo</button>
       <button class="btn btn-warning btn-sm">Salir</button>
     </div>
   </h1>

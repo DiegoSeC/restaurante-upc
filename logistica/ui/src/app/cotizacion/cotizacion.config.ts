@@ -16,8 +16,18 @@ namespace Taller.Cotizacion {
       })
       .state({
         name: 'app.cotizacion.dashboard',
-        url: '',
+        url: '?success',
         component: 'cotizacion'
+      })
+      .state({
+        name: 'app.cotizacion.form',
+        url: '/new',
+        component: 'newCotizacion'
+      })
+      .state({
+        name: 'app.cotizacion.solicitud',
+        url: '/solicitud-cotizacion',
+        component: 'solicitudCotizacion'
       });
   }
 }

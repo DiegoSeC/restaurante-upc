@@ -2,19 +2,24 @@ namespace Taller.Cotizacion {
   'use strict';
 
   class CotizacionDashboardController implements ng.IComponentController {
-    static $inject = ['CotizacionFactory'];
+    static $inject = ['CotizacionFactory', '$stateParams'];
 
     public currentDate: Date;
     public cotizaciones: Array<Taller.Cotizacion.ICotizacion>;
 
-    constructor(public CotizacionFactory: ICotizacionFactory) {
-      console.log('Starting Cotizacion Dashboard');
+    public success: boolean;
+
+    constructor(public CotizacionFactory: ICotizacionFactory,
+                public $stateParams: angular.ui.IStateParamsService) {
+      console.log('Starting Cotizacion Dashboard', $stateParams);
       this.currentDate = new Date();
 
-      this.getCotizaciones2();
+      this.getCotizaciones();
+
+      this.success = !!this.$stateParams.success;
     }
 
-    getCotizaciones2() {
+    getCotizaciones() {
       return this.CotizacionFactory.getCotizaciones()
         .then(cotizaciones => {
           cotizaciones.map(cotizacion => {

@@ -3,6 +3,7 @@
 // libraries
 import 'angular';
 import 'angular-ui-router';
+import 'angular-ui-bootstrap';
 
 // css
 import './index.css';
@@ -13,8 +14,11 @@ import './app/app.config';
 
 // cotizacion
 import './app/cotizacion/cotizacion.model';
+import './app/cotizacion/solicitud.cotizacion';
 import './app/cotizacion/cotizacion.app';
 import './app/cotizacion/cotizacion.config';
 import './app/cotizacion/cotizacion.factory';
 import './app/cotizacion/cotizacion.component';
+import './app/cotizacion/new.cotizacion.component';
+import './app/cotizacion/solicitud.cotizacion.component';
 

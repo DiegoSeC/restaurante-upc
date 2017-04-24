@@ -1,6 +1,7 @@
 {
   "dependencies": {
     "angular": "^1.6.2",
+    "angular-ui-bootstrap": "^2.5.0",
     "angular-ui-router": "1.0.0-beta.3"
   },
   "devDependencies": {
@@ -36,6 +37,7 @@
     "gulp-hub": "frankwallis/gulp-hub#d461b9c700df9010d0a8694e4af1fb96d9f38bf4",
     "gulp-insert": "^0.5.0",
     "gulp-ng-annotate": "^2.0.0",
+    "gulp-ng-templates": "0.0.10",
     "gulp-util": "^3.0.8",
     "html-loader": "^0.4.4",
     "html-webpack-plugin": "^2.28.0",

@@ -5,5 +5,6 @@ namespace Taller.Cotizacion {
     created: Date | string;
     updated: Date | string;
     estado: string;
+    ruc: string;
   }
 }

@@ -4,6 +4,7 @@ namespace Taller {
   angular
     .module('app', [
       'ui.router',
+      'ui.bootstrap',
       'app.cotizacion'
     ]);
 }

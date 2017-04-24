@@ -1,0 +1,60 @@
+<ol class="breadcrumb">
+  <li><a href="#">Logistica</a></li>
+  <li><a ui-sref="app.cotizacion.dashboard">Registrar Cotización</a></li>
+  <li><a ui-sref="app.cotizacion.form">Nueva Cotización</a></li>
+  <li class="active">Buscar Solicitud Cotización</li>
+</ol>
+
+<div class="page-header">
+  <h1>
+    Búsqueda Solicitud de Cotización
+  </h1>
+</div>
+
+<div class="dashboard-title">
+  <form>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="form-group">
+          <label for="q">Buscar</label>
+          <input type="text" class="form-control" id="q" ng-model="s.q" placeholder="Ingrese término de búsqueda">
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="dashboard-body">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th></th>
+      <th class="text-center">Código</th>
+      <th class="text-center">RUC del proveedor</th>
+      <th class="text-center">Nombre del Proveedor</th>
+      <th class="text-center">Fecha de Creación</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-show="s.solicitudes.length > 0" ng-repeat="solicitud in s.solicitudes | filter:s.q">
+      <td>
+        <input type="radio" ng-value="$index" ng-model="s.solicitudSelected">
+      </td>
+      <td class="text-center">{{ solicitud.codigo }}</td>
+      <td class="text-center">{{ solicitud.ruc }}</td>
+      <td class="text-center">{{ solicitud.nombreProveedor }}</td>
+      <td class="text-center">{{ solicitud.created | date: 'dd/MM/yyyy' }}</td>
+    </tr>
+    <tr ng-show="!s.solicitudes.length">
+      <td colspan="5" class="text-center">
+        <div class="alert alert-warning" role="alert">No se encontró Solicitudes de Cotización</div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div class="pull-right">
+    <button class="btn btn-default" ng-click="s.setSolicitud()">Aceptar</button>
+    <button class="btn btn-warning" ui-sref="app.cotizacion.form">Cerrar</button>
+  </div>
+</div>
