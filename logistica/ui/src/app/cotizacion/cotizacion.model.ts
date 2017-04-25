@@ -6,5 +6,10 @@ namespace Taller.Cotizacion {
     updated: Date | string;
     estado: string;
     ruc: string;
+    productos: [{
+      cantidad: number,
+      descripcion: string,
+      precioUnitario: number
+    }];
   }
 }

@@ -5,6 +5,7 @@ namespace Taller {
     .module('app', [
       'ui.router',
       'ui.bootstrap',
-      'app.cotizacion'
+      'app.cotizacion',
+      'app.ordenCompra'
     ]);
 }

@@ -22,3 +22,7 @@ import './app/cotizacion/cotizacion.component';
 import './app/cotizacion/new.cotizacion.component';
 import './app/cotizacion/solicitud.cotizacion.component';
 
+// orden de compra
+import './app/orden-compra/orden.compra.app';
+import './app/orden-compra/orden.compra.config';
+import './app/orden-compra/dashboard.component';

@@ -6,6 +6,7 @@ namespace Taller.Cotizacion {
     getSolicitudCotizacion: () => angular.IPromise<Array<Taller.Cotizacion.ISolicitudCotizacion>>;
     setSolicitud: (solicitud: Taller.Cotizacion.ISolicitudCotizacion) => void;
     getSolicitud: () => Taller.Cotizacion.ISolicitudCotizacion;
+    getCotizacion: (id: number) => angular.IPromise<Taller.Cotizacion.ICotizacion>
   }
 
   class CotizacionFactory implements ICotizacionFactory {
@@ -31,6 +32,12 @@ namespace Taller.Cotizacion {
 
     public getSolicitud(): Taller.Cotizacion.ISolicitudCotizacion {
       return this.solicitud;
+    }
+
+    public getCotizacion(id: number): angular.IPromise<Taller.Cotizacion.ICotizacion> {
+      return this.$http.get('http://beta.json-generator.com/api/json/get/VyxYK5P0M')
+        .then(cotizacion => cotizacion.data)
+        .catch(error => null);
     }
   }
 

@@ -1,12 +1,14 @@
 <ol class="breadcrumb">
   <li><a href="#">Logistica</a></li>
   <li><a ui-sref="app.cotizacion.dashboard">Registrar Cotización</a></li>
-  <li class="active">Nueva Cotización</li>
+  <li class="active" ng-hide="n.edit">Nueva Cotización</li>
+  <li class="active" ng-hide="!n.edit">Editar Cotización</li>
 </ol>
 
 <div class="page-header">
   <h1>
-    Nueva Cotización
+    <span ng-hide="n.edit">Nueva Cotización</span>
+    <span ng-hide="!n.edit">Editar Cotización</span>
     <div class="pull-right">
       <button class="btn btn-warning btn-sm" ui-sref="app.cotizacion.dashboard">Salir</button>
     </div>
@@ -24,7 +26,7 @@
             <input type="text" class="form-control" id="ruc" name="ruc" placeholder="Ingrese RUC de Proveedor" disabled
                    ng-model="n.cotizacion.ruc" required>
             <div class="input-group-addon">
-              <a ui-sref="app.cotizacion.solicitud">Buscar Solicitud</a>
+              <a ui-sref="app.cotizacion.solicitud" ng-hide="n.edit">Buscar Solicitud</a>
             </div>
           </div>
         </div>
@@ -34,7 +36,7 @@
              ng-class="{'has-error has-feedback': (n.form.fecha.$dirty || n.form.$submitted) && n.form.fecha.$invalid}">
           <label class="control-label" for="fecha">Fecha</label>
           <input type="date" class="form-control" name="fecha" ng-model="n.cotizacion.created" id="fecha"
-                 placeholder="Ingrese Fecha" required>
+                 placeholder="Ingrese Fecha" required ng-disabled="n.edit">
           <span class="glyphicon glyphicon-remove form-control-feedback"
                 ng-show="(n.form.fecha.$dirty || n.form.$submitted) && n.form.fecha.$invalid" aria-hidden="true"></span>
         </div>
@@ -61,28 +63,28 @@
       </tr>
       </thead>
       <tbody>
-      <tr ng-show="n.solicitud.productos.length" ng-repeat="p in n.solicitud.productos">
+      <tr ng-show="n.cotizacion.productos.length" ng-repeat="p in n.cotizacion.productos">
         <td class="text-center">{{ p.cantidad }}</td>
         <td class="text-center">{{ p.descripcion }}</td>
         <td class="text-center">{{ p.precioUnitario | currency: 'S/. ' }}</td>
         <td class="text-center">{{ p.cantidad * p.precioUnitario | currency: 'S/. ' }}</td>
       </tr>
-      <tr ng-show="!n.solicitud.productos.length">
+      <tr ng-show="!n.cotizacion.productos.length">
         <td colspan="4" class="text-center">
           <div class="alert alert-info" role="alert">Seleccione una Solicitud de Cotización</div>
         </td>
       </tr>
-      <tr ng-show="n.solicitud.productos.length">
+      <tr ng-show="n.cotizacion.productos.length">
         <td colspan="2"></td>
         <td class="text-center">Sub Total</td>
         <td class="text-center">{{ n.subtotal | currency: 'S/. ' }}</td>
       </tr>
-      <tr ng-show="n.solicitud.productos.length">
+      <tr ng-show="n.cotizacion.productos.length">
         <td colspan="2"></td>
         <td class="text-center">IGV</td>
         <td class="text-center">{{ n.subtotal * 0.18 | currency: 'S/. ' }}</td>
       </tr>
-      <tr ng-show="n.solicitud.productos.length">
+      <tr ng-show="n.cotizacion.productos.length">
         <td colspan="2"></td>
         <td class="text-center">Total</td>
         <td class="text-center">{{ (n.subtotal * 0.18) + n.subtotal | currency: 'S/. ' }}</td>
@@ -90,6 +92,8 @@
       </tbody>
     </table>
 
-    <button class="btn btn-default pull-right" type="submit">Registrar</button>
+    <div class="clear-fix">
+      <button class="btn btn-default pull-right" type="submit">{{n.actionText}}</button>
+    </div>
   </div>
 </form>

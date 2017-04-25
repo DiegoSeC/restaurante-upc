@@ -16,7 +16,7 @@ namespace Taller.Cotizacion {
 
       this.getCotizaciones();
 
-      this.success = !!this.$stateParams.success;
+      this.success = this.$stateParams.success;
     }
 
     getCotizaciones() {

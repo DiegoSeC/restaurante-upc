@@ -12,7 +12,7 @@ namespace Taller {
                 $urlRouterProvider: angular.ui.IUrlRouterProvider) {
 
     $locationProvider.html5Mode(false);
-    $urlRouterProvider.otherwise('/login');
+    $urlRouterProvider.otherwise('/cotizacion');
 
     $stateProvider
       .state('app', {

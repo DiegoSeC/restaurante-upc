@@ -10,6 +10,8 @@ namespace Taller.Cotizacion {
     private subtotal: number = 0;
     private edit = false;
 
+    private actionText = 'Registrar';
+
     constructor(public $filter: angular.IFilterService,
                 public CotizacionFactory: Taller.Cotizacion.ICotizacionFactory,
                 public $uibModal: angular.ui.bootstrap.IModalService,
@@ -23,6 +25,21 @@ namespace Taller.Cotizacion {
       this.setSolicitudDetails();
 
       this.edit = !!this.$stateParams.id;
+
+      if(this.edit) {
+        this.getCotizacion();
+        this.actionText = 'Actualizar';
+      }
+    }
+
+    getCotizacion() {
+      this.CotizacionFactory.getCotizacion(this.$stateParams.id)
+        .then(cotizacion => {
+          cotizacion.created = new Date(cotizacion.created);
+          this.cotizacion = cotizacion;
+
+          this.getDetails();
+        });
     }
 
     setSolicitudDetails() {
@@ -31,14 +48,31 @@ namespace Taller.Cotizacion {
       }
 
       this.cotizacion.ruc = this.solicitud.ruc;
+      this.cotizacion.productos = this.solicitud.productos;
 
-      this.solicitud.productos.forEach(producto => {
+      this.getDetails();
+    }
+
+    getDetails() {
+      this.cotizacion.productos.forEach(producto => {
         this.subtotal += producto.precioUnitario * producto.cantidad;
       });
     }
 
     saveCotizacion() {
-      this.$state.go('app.cotizacion.dashboard', {success: 1});
+      if(!this.edit) {
+        return this.createCotizacion();
+      }
+
+      if(window.confirm('¿Está seguro de actualizar la cotización?')) {
+        this.$state.go('app.cotizacion.dashboard', {success: 2});
+      }
+    }
+
+    createCotizacion() {
+      if(window.confirm('¿Está seguro que desea registrar esta cotización?')) {
+        this.$state.go('app.cotizacion.dashboard', {success: 1});
+      }
     }
 
     $onDestroy() {

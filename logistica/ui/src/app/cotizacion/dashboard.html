@@ -3,7 +3,8 @@
   <li class="active">Registrar Cotización</li>
 </ol>
 
-<div uib-alert class="alert-success" ng-show="c.success">Se registró la nueva cotización</div>
+<div uib-alert class="alert-success" ng-show="c.success === 1">Se registró la nueva cotización</div>
+<div uib-alert class="alert-success" ng-show="c.success === 2">Se actualizó correctamente la Cotización</div>
 
 <div class="page-header">
   <h1>
@@ -26,7 +27,7 @@
         <div class="form-group">
           <label class="sr-only" for="search">Buscar Cotización</label>
           <div class="input-group col-xs-12">
-            <input type="text" class="form-control" id="search" placeholder="Buscar Cotización">
+            <input type="text" class="form-control" id="search" ng-model="c.q" placeholder="Buscar Cotización">
             <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
           </div>
         </div>
@@ -48,15 +49,14 @@
     </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="cotizacion in c.cotizaciones">
+      <tr ng-repeat="cotizacion in c.cotizaciones | filter:c.q">
         <td>{{ cotizacion.id }}</td>
         <td>{{ cotizacion.createdBy }}</td>
         <td>{{ cotizacion.created | date: 'dd/MM/yyyy' }}</td>
         <td>{{ cotizacion.updated | date: 'dd/MM/yyyy' }}</td>
         <td>{{ cotizacion.estado }}</td>
         <td>
-          <button class="btn btn-default btn-sm">Editar</button>
-          <button class="btn btn-danger btn-sm">Eliminar</button>
+          <button class="btn btn-default btn-sm" ui-sref="app.cotizacion.edit({id: cotizacion.id})">Editar</button>
         </td>
       </tr>
     </tbody>
