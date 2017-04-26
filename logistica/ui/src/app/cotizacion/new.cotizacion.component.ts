@@ -39,6 +39,7 @@ namespace Taller.Cotizacion {
           let c = cotizacion[0];
           c.fecha = new Date(c.fecha);
           this.cotizacion = c;
+          this.cotizacion.productos.map(producto => producto.precioUnitario = Number(producto.precioUnitario));
 
           this.getDetails();
         });

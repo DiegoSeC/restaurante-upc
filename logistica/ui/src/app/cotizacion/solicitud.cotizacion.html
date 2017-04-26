@@ -36,7 +36,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr ng-show="s.solicitudes.length > 0" ng-repeat="solicitud in s.solicitudes | filter:s.q">
+    <tr ng-show="s.solicitudes.length > 0" ng-repeat="solicitud in sol = (s.solicitudes | filter:s.q)">
       <td>
         <input type="radio" ng-value="$index" ng-model="s.solicitudSelected">
       </td>
@@ -45,7 +45,7 @@
       <td class="text-center">{{ solicitud.proveedor }}</td>
       <td class="text-center">{{ solicitud.fecha | date: 'dd/MM/yyyy' }}</td>
     </tr>
-    <tr ng-show="!s.solicitudes.length">
+    <tr ng-show="!s.solicitudes.length || !sol.length">
       <td colspan="5" class="text-center">
         <div class="alert alert-warning" role="alert">No se encuentra solicitudes de cotizaciones</div>
       </td>
