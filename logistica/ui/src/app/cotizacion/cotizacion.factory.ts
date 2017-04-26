@@ -36,7 +36,7 @@ namespace Taller.Cotizacion {
     }
 
     public getCotizacion(id: number): angular.IPromise<Taller.Cotizacion.ICotizacion> {
-      return this.$http.get('http://190.85.228.7/restaurante/api/cotizacion/' + id)
+      return this.$http.get('http://190.85.228.7/restaurante/api/buscar/' + id)
         .then(cotizacion => cotizacion.data)
         .catch(error => null);
     }

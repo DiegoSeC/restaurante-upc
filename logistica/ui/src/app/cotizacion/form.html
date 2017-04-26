@@ -46,7 +46,7 @@
              ng-class="{'has-error has-feedback': (n.form.fecha.$dirty || n.form.$submitted) && n.form.fecha.$invalid}">
           <label class="control-label" for="estado">Estado</label>
           <select class="form-control" name="estado" ng-model="n.cotizacion.estado" id="estado"
-                  ng-options="estado as estado for estado in ['Activo', 'Anulado']"></select>
+                  ng-options="estado as estado for estado in ['ACTIVO', 'INACTIVO']"></select>
         </div>
       </div>
     </div>

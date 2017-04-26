@@ -36,8 +36,9 @@ namespace Taller.Cotizacion {
     getCotizacion() {
       this.CotizacionFactory.getCotizacion(this.$stateParams.id)
         .then(cotizacion => {
-          cotizacion.created = new Date(cotizacion.created);
-          this.cotizacion = cotizacion;
+          let c = cotizacion[0];
+          c.fecha = new Date(c.fecha);
+          this.cotizacion = c;
 
           this.getDetails();
         });
