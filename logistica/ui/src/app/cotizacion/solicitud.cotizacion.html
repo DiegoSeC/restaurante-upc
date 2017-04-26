@@ -40,10 +40,10 @@
       <td>
         <input type="radio" ng-value="$index" ng-model="s.solicitudSelected">
       </td>
-      <td class="text-center">{{ solicitud.codigo }}</td>
+      <td class="text-center">{{ solicitud.numero }}</td>
       <td class="text-center">{{ solicitud.ruc }}</td>
-      <td class="text-center">{{ solicitud.nombreProveedor }}</td>
-      <td class="text-center">{{ solicitud.created | date: 'dd/MM/yyyy' }}</td>
+      <td class="text-center">{{ solicitud.proveedor }}</td>
+      <td class="text-center">{{ solicitud.fecha | date: 'dd/MM/yyyy' }}</td>
     </tr>
     <tr ng-show="!s.solicitudes.length">
       <td colspan="5" class="text-center">

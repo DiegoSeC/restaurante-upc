@@ -6,7 +6,8 @@ namespace Taller.Cotizacion {
     getSolicitudCotizacion: () => angular.IPromise<Array<Taller.Cotizacion.ISolicitudCotizacion>>;
     setSolicitud: (solicitud: Taller.Cotizacion.ISolicitudCotizacion) => void;
     getSolicitud: () => Taller.Cotizacion.ISolicitudCotizacion;
-    getCotizacion: (id: number) => angular.IPromise<Taller.Cotizacion.ICotizacion>
+    getCotizacion: (id: number) => angular.IPromise<Taller.Cotizacion.ICotizacion>;
+    createCotizacion: (cotizacion: Taller.Cotizacion.ICotizacion) => angular.IPromise<Taller.Cotizacion.ICotizacion>;
   }
 
   class CotizacionFactory implements ICotizacionFactory {
@@ -15,13 +16,13 @@ namespace Taller.Cotizacion {
     constructor(private $http: angular.IHttpService) {}
 
     public getCotizaciones(): angular.IPromise<Array<Taller.Cotizacion.ICotizacion>> {
-      return this.$http.get('http://beta.json-generator.com/api/json/get/VJBgE04RG')
+      return this.$http.get('http://190.85.228.7/restaurante/api/cotizacion/listado')
         .then(cotizaciones => cotizaciones.data)
         .catch(error => null);
     }
 
     public getSolicitudCotizacion(): angular.IPromise<Array<Taller.Cotizacion.ISolicitudCotizacion>> {
-      return this.$http.get('http://beta.json-generator.com/api/json/get/Vkeu1ILAM')
+      return this.$http.get('http://190.85.228.7/restaurante/api/solicitud_de_cotizacion/listado')
         .then(solicitud => solicitud.data)
         .catch(error => null);
     }
@@ -35,8 +36,14 @@ namespace Taller.Cotizacion {
     }
 
     public getCotizacion(id: number): angular.IPromise<Taller.Cotizacion.ICotizacion> {
-      return this.$http.get('http://beta.json-generator.com/api/json/get/VyxYK5P0M')
+      return this.$http.get('http://190.85.228.7/restaurante/api/cotizacion/' + id)
         .then(cotizacion => cotizacion.data)
+        .catch(error => null);
+    }
+
+    public createCotizacion(cotizacion: Taller.Cotizacion.ICotizacion): angular.IPromise<Taller.Cotizacion.ICotizacion> {
+      return this.$http.post('http://190.85.228.7/restaurante/api/cotizacion/add', cotizacion)
+        .then(res => res.data)
         .catch(error => null);
     }
   }

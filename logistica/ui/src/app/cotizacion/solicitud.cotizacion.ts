@@ -1,9 +1,9 @@
 namespace Taller.Cotizacion {
   export interface ISolicitudCotizacion {
-    codigo: number;
+    numero: number;
     ruc: string;
-    created: Date | string;
-    nombreProveedor: string;
+    fecha: Date | string;
+    proveedor: string;
     productos: [{
       cantidad: number,
       descripcion: string,

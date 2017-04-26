@@ -22,10 +22,7 @@ namespace Taller.Cotizacion {
     getCotizaciones() {
       return this.CotizacionFactory.getCotizaciones()
         .then(cotizaciones => {
-          cotizaciones.map(cotizacion => {
-            cotizacion.created = new Date(cotizacion.created);
-            cotizacion.updated = new Date(cotizacion.updated);
-          });
+          cotizaciones.map(cotizacion => cotizacion.fecha = new Date(cotizacion.fecha));
 
           this.cotizaciones = cotizaciones;
         });

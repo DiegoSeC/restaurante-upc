@@ -17,7 +17,7 @@ namespace Taller.Cotizacion {
       return this.CotizacionFactory.getSolicitudCotizacion()
         .then(solicitudes => {
           solicitudes.map(solicitud => {
-            solicitud.created = new Date(solicitud.created);
+            solicitud.fecha = new Date(solicitud.fecha);
           });
 
           this.solicitudes = solicitudes;

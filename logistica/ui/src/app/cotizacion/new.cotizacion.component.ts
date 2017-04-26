@@ -2,7 +2,7 @@ namespace Taller.Cotizacion {
   'use strict';
 
   class NewCotizacionController implements angular.IComponentController {
-    static $inject = ['$filter', 'CotizacionFactory', '$uibModal', '$state', '$timeout', '$stateParams'];
+    static $inject = ['$filter', 'CotizacionFactory', '$uibModal', '$state', '$timeout', '$stateParams', '$scope'];
 
     private cotizacion = <Taller.Cotizacion.ICotizacion> {};
     private solicitud: Taller.Cotizacion.ISolicitudCotizacion;
@@ -17,7 +17,8 @@ namespace Taller.Cotizacion {
                 public $uibModal: angular.ui.bootstrap.IModalService,
                 public $state: angular.ui.IStateService,
                 public $timeout: angular.ITimeoutService,
-                public $stateParams: angular.ui.IStateParamsService) {
+                public $stateParams: angular.ui.IStateParamsService,
+                public $scope: angular.IScope) {
 
       console.log('New Cotizacion');
 
@@ -49,13 +50,18 @@ namespace Taller.Cotizacion {
 
       this.cotizacion.ruc = this.solicitud.ruc;
       this.cotizacion.productos = this.solicitud.productos;
+      this.cotizacion.solicitudCotizacion = this.solicitud.numero;
 
       this.getDetails();
     }
 
     getDetails() {
+      this.subtotal = 0;
+
       this.cotizacion.productos.forEach(producto => {
-        this.subtotal += producto.precioUnitario * producto.cantidad;
+        producto.precioUnitario = producto.precioUnitario || 0.00;
+        producto.cantidad = producto.cantidad || 0.00;
+        this.subtotal += Number(producto.precioUnitario) * Number(producto.cantidad);
       });
     }
 
@@ -71,12 +77,19 @@ namespace Taller.Cotizacion {
 
     createCotizacion() {
       if(window.confirm('¿Está seguro que desea registrar esta cotización?')) {
-        this.$state.go('app.cotizacion.dashboard', {success: 1});
+        return this.CotizacionFactory.createCotizacion(this.cotizacion)
+          .then(() => {
+            this.$state.go('app.cotizacion.dashboard', {success: 1});
+          });
       }
     }
 
     $onDestroy() {
       this.CotizacionFactory.setSolicitud(null);
+    }
+
+    updateValues() {
+      this.$timeout(() => this.getDetails());
     }
   }
 
