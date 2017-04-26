@@ -72,7 +72,10 @@ namespace Taller.Cotizacion {
       }
 
       if(window.confirm('¿Está seguro de actualizar la cotización?')) {
-        this.$state.go('app.cotizacion.dashboard', {success: 2});
+        return this.CotizacionFactory.updateCotizacion(this.cotizacion)
+          .then(() => {
+            this.$state.go('app.cotizacion.dashboard', {success: 2});
+          });
       }
     }
 

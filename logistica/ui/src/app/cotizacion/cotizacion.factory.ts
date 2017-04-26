@@ -8,6 +8,7 @@ namespace Taller.Cotizacion {
     getSolicitud: () => Taller.Cotizacion.ISolicitudCotizacion;
     getCotizacion: (id: number) => angular.IPromise<Taller.Cotizacion.ICotizacion>;
     createCotizacion: (cotizacion: Taller.Cotizacion.ICotizacion) => angular.IPromise<Taller.Cotizacion.ICotizacion>;
+    updateCotizacion: (cotizacion: Taller.Cotizacion.ICotizacion) => angular.IPromise<Taller.Cotizacion.ICotizacion>;
   }
 
   class CotizacionFactory implements ICotizacionFactory {
@@ -43,6 +44,12 @@ namespace Taller.Cotizacion {
 
     public createCotizacion(cotizacion: Taller.Cotizacion.ICotizacion): angular.IPromise<Taller.Cotizacion.ICotizacion> {
       return this.$http.post('http://190.85.228.7/restaurante/api/cotizacion/add', cotizacion)
+        .then(res => res.data)
+        .catch(error => null);
+    }
+
+    public updateCotizacion(cotizacion: Taller.Cotizacion.ICotizacion): angular.IPromise<Taller.Cotizacion.ICotizacion> {
+      return this.$http.put('http://190.85.228.7/restaurante/api/cotizacion/edit', cotizacion)
         .then(res => res.data)
         .catch(error => null);
     }
