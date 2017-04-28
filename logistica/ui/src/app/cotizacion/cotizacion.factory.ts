@@ -17,7 +17,7 @@ namespace Taller.Cotizacion {
     constructor(private $http: angular.IHttpService) {}
 
     public getCotizaciones(): angular.IPromise<Array<Taller.Cotizacion.ICotizacion>> {
-      return this.$http.get('http://190.85.228.7/restaurante/api/cotizacion/listado')
+      return this.$http.get('http://localhost:8000/cotizaciones')
         .then(cotizaciones => cotizaciones.data)
         .catch(error => null);
     }
