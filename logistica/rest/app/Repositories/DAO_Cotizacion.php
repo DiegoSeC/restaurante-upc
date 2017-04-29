@@ -22,12 +22,52 @@ class DAO_Cotizacion
     {
         return $this->model
             ->where('numero', 'like', "%$q%")
-            ->orWhere('fecha_de_vencimiento', 'like', "%$q%")
+            ->orWhere('fecha_de_vencimiento', 'like', "%{$this->formatDate($q)}%")
             ->orWhereHas('personal', function($sq) use ($q) {
                 $sq->where('nombres', 'like', "%$q%");
             })
             ->orWhereHas('proveedor', function($sq) use ($q) {
                 $sq->where('nombre', 'like', "%$q%");
             })->get();
+    }
+
+    public function getById($id)
+    {
+        return $this->model->find($id);
+    }
+
+    public function createCotizacion($data)
+    {
+        $cotizacion = new Cotizacion();
+
+        $cotizacion->numero_solicitud_de_cotizacion = $data->get('numero_solicitud_de_cotizacion');
+        $cotizacion->observacion = $data->get('observacion');
+        $cotizacion->fecha_de_vencimiento = $data->get('fecha_de_vencimiento');
+        $cotizacion->fecha = date('Y-m-d');
+        $cotizacion->fecha_de_actualizacion = date('Y-m-d');
+        $cotizacion->estado = 'ACTIVO';
+        $cotizacion->idproveedor = $data->get('idproveedor');
+        $cotizacion->idpersonal = 1;
+
+        $cotizacion->save();
+
+        return $cotizacion;
+    }
+
+    public function updateCotizacion($id, $data)
+    {
+        $cotizacion = Cotizacion::find($id);
+
+        $cotizacion->observacion = $data->get('observacion');
+        $cotizacion->estado = $data->get('estado');
+
+        $cotizacion->save();
+        return $cotizacion;
+    }
+
+    private function formatDate($date)
+    {
+        $_date = explode('/', $date);
+        return implode('-', array_reverse($_date));
     }
 }

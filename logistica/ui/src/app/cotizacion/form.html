@@ -35,8 +35,8 @@
         <div class="form-group"
              ng-class="{'has-error has-feedback': (n.form.fecha.$dirty || n.form.$submitted) && n.form.fecha.$invalid}">
           <label class="control-label" for="fecha">Fecha de Validez</label>
-          <input type="date" class="form-control" name="fecha" ng-model="n.cotizacion.fecha" id="fecha"
-                 placeholder="Ingrese Fecha" required ng-disabled="n.edit">
+          <input type="date" class="form-control" name="fecha" ng-model="n.cotizacion.fecha_de_vencimiento" id="fecha"
+                 placeholder="Ingrese Fecha" required ng-disabled="n.edit" min="{{n.minDate | date:'yyyy-MM-dd'}}">
           <span class="glyphicon glyphicon-remove form-control-feedback"
                 ng-show="(n.form.fecha.$dirty || n.form.$submitted) && n.form.fecha.$invalid" aria-hidden="true"></span>
         </div>
@@ -64,15 +64,16 @@
       </tr>
       </thead>
       <tbody>
-      <tr ng-show="n.cotizacion.productos.length" ng-repeat="p in n.cotizacion.productos">
+      <tr ng-show="n.cotizacion.detalle.length" ng-repeat="p in n.cotizacion.detalle">
         <td class="text-center">{{ p.cantidad }}</td>
-        <td class="text-center">{{ p.descripcion }}</td>
+        <td class="text-center">{{ p.productoNombre }}</td>
         <td class="text-center" width="15%">
           <div class="form-group"
                ng-class="{'has-error has-feedback': (n.form['precio'+$index].$dirty || n.form.$submitted) && n.form['precio'+$index].$invalid}">
             <div class="input-group">
               <div class="input-group-addon">S/.</div>
               <input type="number" class="form-control input-sm"
+                     min="0"
                      name="precio{{$index}}" ng-model="p.precioUnitario"
                      ng-change="n.updateValues()" ng-model-options="{debounce: 300}">
               <span class="glyphicon glyphicon-remove form-control-feedback"
@@ -91,22 +92,22 @@
         <!--</td>-->
         <td class="text-center">{{ p.cantidad * p.precioUnitario | currency: 'S/. ' }}</td>
       </tr>
-      <tr ng-show="!n.cotizacion.productos.length">
+      <tr ng-show="!n.cotizacion.detalle.length">
         <td colspan="4" class="text-center">
           <div class="alert alert-info" role="alert">Seleccione una Solicitud de Cotización</div>
         </td>
       </tr>
-      <tr ng-show="n.cotizacion.productos.length">
+      <tr ng-show="n.cotizacion.detalle.length">
         <td colspan="2"></td>
         <td class="text-center">Sub Total</td>
         <td class="text-center">{{ n.subtotal | currency: 'S/. ' }}</td>
       </tr>
-      <tr ng-show="n.cotizacion.productos.length">
+      <tr ng-show="n.cotizacion.detalle.length">
         <td colspan="2"></td>
         <td class="text-center">IGV</td>
         <td class="text-center">{{ n.subtotal * 0.18 | currency: 'S/. ' }}</td>
       </tr>
-      <tr ng-show="n.cotizacion.productos.length">
+      <tr ng-show="n.cotizacion.detalle.length">
         <td colspan="2"></td>
         <td class="text-center">Total</td>
         <td class="text-center">{{ (n.subtotal * 0.18) + n.subtotal | currency: 'S/. ' }}</td>

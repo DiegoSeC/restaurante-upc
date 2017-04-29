@@ -1,13 +1,23 @@
 namespace Taller.Cotizacion {
   export interface ISolicitudCotizacion {
     numero: number;
-    ruc: string;
+    idpersonal: number;
+    idproveedor: number;
+    estado: string;
+    observacion: string;
     fecha: Date | string;
-    proveedor: string;
+    fecha_actualizacion: Date | string;
     productos: [{
+      numero_solicitud_de_cotizacion: number,
+      idproducto: number,
       cantidad: number,
-      descripcion: string,
-      precioUnitario: number
-    }];
+      id: number,
+      productoNombre: string
+    }],
+    proveedor: {
+      ruc: string,
+      nombre: string,
+      id: number
+    }
   }
 }

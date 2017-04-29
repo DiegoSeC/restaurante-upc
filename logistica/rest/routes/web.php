@@ -16,3 +16,9 @@ $app->get('/', function () use ($app) {
 });
 
 $app->get('/cotizaciones', ['middleware' => 'cors', 'uses' => 'CotizacionController@getCotizaciones']);
+$app->get('/cotizacion/{id}', ['middleware' => 'cors', 'uses' => 'CotizacionController@getCotizacion']);
+$app->get('/solicitudes', ['middleware' => 'cors', 'uses' => 'SolicitudController@getSolicitudes']);
+$app->options('/cotizacion', ['middleware' => 'cors', 'uses' => 'CotizacionController@create']);
+$app->post('/cotizacion', ['middleware' => 'cors', 'uses' => 'CotizacionController@create']);
+$app->options('/cotizacion/{id}', ['middleware' => 'cors', 'uses' => 'CotizacionController@update']);
+$app->put('/cotizacion/{id}', ['middleware' => 'cors', 'uses' => 'CotizacionController@update']);

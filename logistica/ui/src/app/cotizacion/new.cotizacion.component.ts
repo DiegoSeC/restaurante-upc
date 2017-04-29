@@ -11,6 +11,9 @@ namespace Taller.Cotizacion {
     private edit = false;
 
     private actionText = 'Registrar';
+    private minDate;
+
+    // private cotizacion;
 
     constructor(public $filter: angular.IFilterService,
                 public CotizacionFactory: Taller.Cotizacion.ICotizacionFactory,
@@ -22,8 +25,11 @@ namespace Taller.Cotizacion {
 
       console.log('New Cotizacion');
 
+      this.minDate = new Date();
       this.solicitud = this.CotizacionFactory.getSolicitud();
-      this.setSolicitudDetails();
+      this.setCotizacion();
+
+      // this.setSolicitudDetails();
 
       this.edit = !!this.$stateParams.id;
 
@@ -36,31 +42,29 @@ namespace Taller.Cotizacion {
     getCotizacion() {
       this.CotizacionFactory.getCotizacion(this.$stateParams.id)
         .then(cotizacion => {
-          let c = cotizacion[0];
-          c.fecha = new Date(c.fecha);
-          this.cotizacion = c;
-          this.cotizacion.productos.map(producto => producto.precioUnitario = Number(producto.precioUnitario));
+          cotizacion.fecha_de_vencimiento = new Date(cotizacion.fecha_de_vencimiento);
+
+          this.cotizacion = <ICotizacion> {
+            numero: cotizacion.numero,
+            numero_solicitud_de_cotizacion: cotizacion.numero_solicitud_de_cotizacion,
+            idproveedor: cotizacion.idproveedor,
+            ruc: cotizacion.proveedor.ruc,
+            detalle: cotizacion.detalle,
+            fecha_de_vencimiento: cotizacion.fecha_de_vencimiento,
+            estado: cotizacion.estado,
+            observacion: cotizacion.observacion
+          };
+
+          this.cotizacion.detalle.map(producto => producto.precioUnitario = Number(producto.precio));
 
           this.getDetails();
         });
     }
 
-    setSolicitudDetails() {
-      if (!this.solicitud) {
-        return null;
-      }
-
-      this.cotizacion.ruc = this.solicitud.ruc;
-      this.cotizacion.productos = this.solicitud.productos;
-      this.cotizacion.solicitudCotizacion = this.solicitud.numero;
-
-      this.getDetails();
-    }
-
     getDetails() {
       this.subtotal = 0;
 
-      this.cotizacion.productos.forEach(producto => {
+      this.cotizacion.detalle.forEach(producto => {
         producto.precioUnitario = producto.precioUnitario || 0.00;
         producto.cantidad = producto.cantidad || 0.00;
         this.subtotal += Number(producto.precioUnitario) * Number(producto.cantidad);
@@ -95,6 +99,21 @@ namespace Taller.Cotizacion {
 
     updateValues() {
       this.$timeout(() => this.getDetails());
+    }
+
+    setCotizacion() {
+      if (!this.solicitud) {
+        return null;
+      }
+
+      this.cotizacion = <ICotizacion> {
+        numero_solicitud_de_cotizacion: this.solicitud.numero,
+        idproveedor: this.solicitud.proveedor.id,
+        ruc: this.solicitud.proveedor.ruc,
+        detalle: this.solicitud.productos
+      };
+
+      this.getDetails();
     }
   }
 

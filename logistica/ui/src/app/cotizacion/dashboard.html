@@ -27,7 +27,8 @@
         <div class="form-group">
           <label class="sr-only" for="search">Buscar Cotización</label>
           <div class="input-group col-xs-12">
-            <input type="text" class="form-control" id="search" ng-model="c.q" placeholder="Buscar Cotización">
+            <input type="text" class="form-control" id="search" ng-model="c.q"
+                   ng-keyup="c.searchCotizaciones()" placeholder="Buscar Cotización">
             <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
           </div>
         </div>
@@ -49,11 +50,11 @@
     </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="cotizacion in c.cotizaciones | filter:c.q">
+      <tr ng-repeat="cotizacion in c.cotizaciones">
         <td>{{ cotizacion.numero }}</td>
-        <td>{{ cotizacion.personal }}</td>
-        <td>{{ cotizacion.proveedor | date: 'dd/MM/yyyy' }}</td>
-        <td>{{ cotizacion.fecha | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ cotizacion.personal.nombres }}</td>
+        <td>{{ cotizacion.proveedor.nombre | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ cotizacion.fecha_de_vencimiento | date: 'dd/MM/yyyy' }}</td>
         <td>{{ cotizacion.estado }}</td>
         <td>
           <button class="btn btn-default btn-sm" ui-sref="app.cotizacion.edit({id: cotizacion.numero})">Editar</button>

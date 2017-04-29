@@ -20,4 +20,22 @@ class CotizacionController extends Controller
         $cotizaciones = $this->blCotizacion->getCotizaciones($input->get('q', null));
         return response()->json($cotizaciones);
     }
+
+    public function getCotizacion($id)
+    {
+        $cotizacion = $this->blCotizacion->getCotizacion($id);
+        return response()->json($cotizacion);
+    }
+
+    public function create(Request $input)
+    {
+        $cotizacion = $this->blCotizacion->createCotizacion($input->json());
+        return response()->json($cotizacion);
+    }
+
+    public function update($id, Request $input)
+    {
+        $cotizacion = $this->blCotizacion->updateCotizacion($id, $input->json());
+        return response()->json($cotizacion);
+    }
 }

@@ -9,18 +9,17 @@ class Cotizacion extends Model
     // use SoftDeletes;
     protected $table = 'cotizacion';
     protected $primaryKey = 'numero';
-    protected $appends = ['proveedor', 'personal'];
+    protected $with = ['proveedor', 'personal'];
+    public $timestamps = false;
 
-    public function getProveedorAttribute()
+    public function setEstadoAttribute($value)
     {
-        $proveedor = $this->proveedor();
-        return $proveedor->first()->nombre;
+        $this->attributes['estado'] = $value === 'ACTIVO' ? 1 : 2;
     }
 
-    public function getPersonalAttribute()
+    public function getEstadoAttribute($value)
     {
-        $personal = $this->personal();
-        return $personal->first()->nombres;
+        return $value === 1 ? 'ACTIVO' : 'INACTIVO';
     }
 
     public function proveedor()
@@ -31,6 +30,16 @@ class Cotizacion extends Model
     public function personal()
     {
         return $this->belongsTo('App\Models\Personal', 'idpersonal');
+    }
+
+    public function solicitud()
+    {
+        return $this->belongsTo('App\Models\SolicitudCotizacion', 'numero_solicitud_de_cotizacion');
+    }
+
+    public function detalle()
+    {
+        return $this->hasMany('App\Models\DetalleCotizacion');
     }
 
     public function setUpdatedAt($value)
