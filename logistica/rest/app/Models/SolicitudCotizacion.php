@@ -8,6 +8,7 @@ class SolicitudCotizacion extends Model
 {
     protected $table = 'solicitud_de_cotizacion';
     protected $primaryKey = 'numero';
+    public $timestamps = false;
 
     public function cotizacion()
     {

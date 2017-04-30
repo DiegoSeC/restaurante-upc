@@ -22,3 +22,11 @@ $app->options('/cotizacion', ['middleware' => 'cors', 'uses' => 'CotizacionContr
 $app->post('/cotizacion', ['middleware' => 'cors', 'uses' => 'CotizacionController@create']);
 $app->options('/cotizacion/{id}', ['middleware' => 'cors', 'uses' => 'CotizacionController@update']);
 $app->put('/cotizacion/{id}', ['middleware' => 'cors', 'uses' => 'CotizacionController@update']);
+
+$app->get('/ordenes', ['middleware' => 'cors', 'uses' => 'OrdenCompraController@getOrdenes']);
+$app->get('/ordenes/cotizaciones', ['middleware' => 'cors', 'uses' => 'OrdenCompraController@getCotizaciones']);
+$app->options('/orden', ['middleware' => 'cors', 'uses' => 'OrdenCompraController@createOrden']);
+$app->post('/orden', ['middleware' => 'cors', 'uses' => 'OrdenCompraController@createOrden']);
+$app->get('/orden/{id}', ['middleware' => 'cors', 'uses' => 'OrdenCompraController@getOrden']);
+$app->options('/orden/{id}', ['middleware' => 'cors', 'uses' => 'OrdenCompraController@update']);
+$app->put('/orden/{id}', ['middleware' => 'cors', 'uses' => 'OrdenCompraController@update']);

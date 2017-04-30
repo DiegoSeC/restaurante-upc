@@ -20,4 +20,9 @@ class Personal extends Model
     {
         return $this->hasMany('App\Models\Cotizacion');
     }
+
+    public function ordenes()
+    {
+        return $this->hasMany('App\Models\OrdenCompra');
+    }
 }

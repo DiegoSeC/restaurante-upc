@@ -2,19 +2,21 @@
 
 namespace App\Services;
 
-use App\Models\DetalleCotizacion;
 use App\Repositories\DAO_Cotizacion;
 use App\Repositories\DAO_DetalleCotizacion;
+use App\Repositories\DAO_SolicitudCotizacion;
 
 class BL_Cotizacion extends Services
 {
     private $repository;
     private $detalleRespository;
+    private $solicitudRepository;
 
-    public function __construct(DAO_Cotizacion $dao, DAO_DetalleCotizacion $daoDetalle)
+    public function __construct(DAO_Cotizacion $dao, DAO_DetalleCotizacion $daoDetalle, DAO_SolicitudCotizacion $daoSol)
     {
         $this->repository = $dao;
         $this->detalleRespository = $daoDetalle;
+        $this->solicitudRepository = $daoSol;
     }
 
 
@@ -37,6 +39,7 @@ class BL_Cotizacion extends Services
     {
         $cotizacion = $this->repository->createCotizacion($data);
         $this->detalleRespository->createDetalle($data, $cotizacion->numero);
+        $this->solicitudRepository->updateEstado($data->get('numero_solicitud_de_cotizacion'));
 
         return ['success' => true];
     }

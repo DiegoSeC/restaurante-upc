@@ -18,4 +18,9 @@ class Producto extends Model
         return $this->hasMany('App\Models\DetalleCotizacion');
     }
 
+    public function detalleOrden()
+    {
+        return $this->hasMany('App\Models\DetalleOrden');
+    }
+
 }

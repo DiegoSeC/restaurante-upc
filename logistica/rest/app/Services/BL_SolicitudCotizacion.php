@@ -29,6 +29,11 @@ class BL_SolicitudCotizacion extends Repository
         return $this->attachDetalle($solicitudes);
     }
 
+    public function updateEstado($id)
+    {
+        return $this->repository->updateEstado($id);
+    }
+
     private function attachDetalle($solicitudes)
     {
         foreach ($solicitudes as $solicitud)

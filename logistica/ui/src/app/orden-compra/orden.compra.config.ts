@@ -16,8 +16,18 @@ namespace Taller.OrdenCompra {
       })
       .state({
         name: 'app.ordenCompra.dashboard',
-        url: '?success',
+        url: '?success&id',
         component: 'dashboard'
+      })
+      .state({
+        name: 'app.ordenCompra.form',
+        url: '/new',
+        component: 'ordenForm'
+      })
+      .state({
+        name: 'app.ordenCompra.edit',
+        url: '/edit/:id',
+        component: 'ordenForm'
       });
   }
 }

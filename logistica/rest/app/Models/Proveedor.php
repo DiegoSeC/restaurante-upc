@@ -18,6 +18,11 @@ class Proveedor extends Model
         return $this->hasMany('App\Models\SolicitudCotizacion');
     }
 
+    public function ordenes()
+    {
+        return $this->hasMany('App\Models\OrdenCompra');
+    }
+
     public function setUpdatedAt($value)
     {
     }

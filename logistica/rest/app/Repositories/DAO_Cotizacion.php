@@ -31,6 +31,15 @@ class DAO_Cotizacion
             })->get();
     }
 
+    public function searchCotizacion($q)
+    {
+        return $this->model
+            ->with('proveedor')
+            ->where('numero', 'like', "%$q%")
+            ->where('estado', '=', 1)
+            ->get();
+    }
+
     public function getById($id)
     {
         return $this->model->find($id);

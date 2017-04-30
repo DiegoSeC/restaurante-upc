@@ -51,9 +51,9 @@
     </thead>
     <tbody>
       <tr ng-repeat="cotizacion in c.cotizaciones">
-        <td>{{ cotizacion.numero }}</td>
+        <td>{{ cotizacion.numero | codigo:true }}</td>
         <td>{{ cotizacion.personal.nombres }}</td>
-        <td>{{ cotizacion.proveedor.nombre | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ cotizacion.proveedor.nombre }}</td>
         <td>{{ cotizacion.fecha_de_vencimiento | date: 'dd/MM/yyyy' }}</td>
         <td>{{ cotizacion.estado }}</td>
         <td>

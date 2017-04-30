@@ -15,9 +15,12 @@ class DAO_SolicitudCotizacion
 
     function getAll()
     {
-        return $this->model->with(['proveedor' => function($q) {
-            $q->select('ruc', 'nombre', 'id');
-        }])->get();
+        return $this->model
+            ->with(['proveedor' => function($q) {
+                $q->select('ruc', 'nombre', 'id');
+            }])
+            ->where('estado', '=', '1')
+            ->get();
     }
 
     public function getLikeAll($q)
@@ -31,6 +34,14 @@ class DAO_SolicitudCotizacion
             ->orWhereHas('proveedor', function($sq) use ($q) {
                 $sq->where('nombre', 'like', "%$q%")->orWhere('ruc', 'like', "%$q%");
             })->get();
+    }
+
+    public function updateEstado($id)
+    {
+        $solicitud = SolicitudCotizacion::find($id);
+        $solicitud->estado = 0;
+        $solicitud->save();
+        return $solicitud;
     }
 
     private function formatDate($date)
