@@ -18,8 +18,14 @@ class DAO_OrdenCompra
         return $this->model->all();
     }
 
-    public function getLikeAll($q)
+    public function getLikeAll($q, $cod = false)
     {
+        if($cod) {
+            return $this->model
+                ->where('numero', 'like', "%$q%")
+                ->get();
+        }
+
         return $this->model
             ->where('numero', 'like', "%$q%")
             ->orWhere('fecha', 'like', "%{$this->formatDate($q)}%")

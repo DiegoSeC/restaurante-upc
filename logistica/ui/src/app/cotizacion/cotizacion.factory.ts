@@ -13,7 +13,7 @@ namespace Taller.Cotizacion {
 
   class CotizacionFactory implements ICotizacionFactory {
     private solicitud: Taller.Cotizacion.ISolicitudCotizacion;
-    private baseUrl = 'http://localhost:8000'; // 'http://190.85.228.7/rest-restaurante/public'
+    private baseUrl = 'http://190.85.228.7/rest-restaurante/public'; // 'http://190.85.228.7/rest-restaurante/public'
 
     constructor(private $http: angular.IHttpService) {}
 

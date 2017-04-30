@@ -23,7 +23,14 @@ class BL_Cotizacion extends Services
     public function getCotizaciones($q = null)
     {
         if(isset($q)) {
-            return $this->repository->getLikeAll($q);
+            $cod = false;
+
+            if(strpos($q, 'COT17') > -1) {
+                $q = (int) substr($q, -4);
+                $cod = true;
+            }
+
+            return $this->repository->getLikeAll($q, $cod);
         }
 
         return $this->repository->getAll();

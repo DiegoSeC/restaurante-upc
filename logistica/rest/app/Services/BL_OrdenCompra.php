@@ -29,7 +29,14 @@ class BL_OrdenCompra extends Services
     public function getOrdenes($q = null)
     {
         if(isset($q)) {
-            return $this->repository->getLikeAll($q);
+            $cod = false;
+
+            if(strpos($q, 'N17') > -1) {
+                $q = (int) substr($q, -4);
+                $cod = true;
+            }
+
+            return $this->repository->getLikeAll($q, $cod);
         }
 
         return $this->repository->getAll();
@@ -37,6 +44,10 @@ class BL_OrdenCompra extends Services
 
     public function getCotizaciones($q)
     {
+        if(strpos($q, 'COT') > -1) {
+            $q = (int) substr($q, -4);
+        }
+
         $cotizaciones = $this->cotizacionRepository->searchCotizacion($q);
 
         foreach ($cotizaciones as &$cotizacion)

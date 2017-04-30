@@ -10,7 +10,7 @@ namespace Taller.OrdenCompra {
   }
 
   class OrdenCompraFactory implements IOrdenCompraFactory {
-    private baseUrl = 'http://localhost:8000';
+    private baseUrl = 'http://190.85.228.7/rest-restaurante/public'; // 'http://localhost:8000';
 
     constructor(public $http: angular.IHttpService) {}
 
